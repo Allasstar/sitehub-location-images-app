@@ -103,6 +103,8 @@ const changeLocationImageArrayInput = (key) => {
 }
 
 // Requests
+const locationUrl = "https://o8n4pc42ee.execute-api.eu-north-1.amazonaws.com/dev/core/locations";
+const locationImagesUrl = "https://o8n4pc42ee.execute-api.eu-north-1.amazonaws.com/dev/core/location-images";
 const loadLocations = () => {
   locationId = -1;
   observer.set('locations',{});
@@ -117,7 +119,7 @@ const loadLocations = () => {
     headers: myHeaders
   };
   
-  fetch("https://tj3c710g60.execute-api.us-west-1.amazonaws.com/dev/core/locations", requestOptions)
+  fetch(locationUrl, requestOptions)
     .then(response => response.text())
     .then(result => {
       const value = JSON.parse(result);
@@ -145,7 +147,7 @@ const loadLocationImages = (key) => {
     headers: myHeaders,
   };
   
-  fetch("https://tj3c710g60.execute-api.us-west-1.amazonaws.com/dev/core/location-images", requestOptions)
+  fetch(locationImagesUrl, requestOptions)
     .then(response => response.text())
     .then(result => {
       const value = JSON.parse(result);
@@ -202,7 +204,7 @@ const postLocationImages = () => {
     body: raw,
   };
   
-  fetch("https://tj3c710g60.execute-api.us-west-1.amazonaws.com/dev/core/location-images", requestOptions)
+  fetch(locationImagesUrl, requestOptions)
     .then(response => response.text())
     .then(result => {
       observer.set('status', `Status: added [${addUrls?.length}] images to locationId: [${locationId}]`);
@@ -237,7 +239,7 @@ const deleteLocationImages = (key) => {
     body: raw,
   };
 
-  fetch("https://tj3c710g60.execute-api.us-west-1.amazonaws.com/dev/core/location-images", requestOptions)
+  fetch(locationImagesUrl, requestOptions)
     .then(response => response.text())
     .then(result => {
       console.log(result);
@@ -253,5 +255,4 @@ const deleteLocationImages = (key) => {
       console.log('error', error);
       observer.set('status', `Status: need select locationId`);
     });
-
 }
